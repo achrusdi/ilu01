@@ -1,0 +1,6 @@
+novel,222-A-0001,test title,rusdi,rusdi juga,222
+novel,200-A-0002,test title2,rusdi,rusdi juga,200
+magazine,2010-B-0001,test title3,rusdi,2010
+magazine,2011-B-0002,test title4,rusdi,2011
+novel,222-A-0003,test title,rusdi,rusdi juga,222
+novel,200-A-0004,test title2,rusdi,rusdi juga,200

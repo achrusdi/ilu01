@@ -15,7 +15,7 @@ public class Menu {
     public static InventoryServiceImpl inventory = new InventoryServiceImpl();
 
     public static void run() {
-        init();
+        // init();
         showMenu();
     }
 
@@ -277,6 +277,7 @@ public class Menu {
     public static void init() {
         Book newBook = new Novel("test title", "rusdi", "rusdi juga", new BigDecimal(222));
         inventory.addBook(newBook);
+        System.out.println(newBook.getClass().getSimpleName());
         Book newBook2 = new Novel("test title2", "rusdi", "rusdi juga", new BigDecimal(200));
         inventory.addBook(newBook2);
         Book newBook3 = new Magazine("test title3", "rusdi", new BigDecimal(2010));
