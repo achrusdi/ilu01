@@ -1,0 +1,2 @@
+magazine,123-B-0001,magazine 1,weekly,123
+novel,2132-A-0002,novel 2,rusdi,rusdi,2132

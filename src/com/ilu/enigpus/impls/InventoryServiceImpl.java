@@ -16,6 +16,7 @@ import com.ilu.enigpus.services.InventoryService;
 import com.ilu.enigpus.utils.Helpers;
 
 public class InventoryServiceImpl implements InventoryService {
+    private String database = "src/com/ilu/enigpus/connections/database.txt";
 
     private ArrayList<Book> books = new ArrayList<Book>();
 
@@ -93,7 +94,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     private void writeBooksToFile() throws IOException {
-        File file = new File("database.txt");
+        File file = new File(database);
         FileWriter fileWriter = new FileWriter(file);
         BufferedWriter writer = new BufferedWriter(fileWriter);
 
@@ -119,7 +120,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     private void readBooksFromFile() throws IOException {
-        File file = new File("database.txt");
+        File file = new File(database);
         FileReader fileReader = new FileReader(file);
         BufferedReader reader = new BufferedReader(fileReader);
 
