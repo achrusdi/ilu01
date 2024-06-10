@@ -33,7 +33,7 @@ public class Menu {
 
         String option;
         do {
-            System.out.print("Choose an option (1 - 4): ");
+            System.out.print("Choose an option (1 - 6): ");
             option = Helpers.inputString();
 
             if (!Helpers.isNumeric(option)) {

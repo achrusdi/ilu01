@@ -11,7 +11,20 @@ public class Novel extends Book {
     public Novel(String title, String publisher, String author, BigDecimal year) {
         // super.setCode(code);
         // super.setTitle(title);
-        super.setCode(Helpers.generateCodeBook(year, "novel"));
+        // super.setCode(Helpers.generateCodeBook(year, "novel"));
+        if (getCode() == null) {
+            this.setCode(Helpers.generateCodeBook(year, "novel"));
+        }
+        this.setTitle(title);
+        this.setYear(year);
+        this.publisher = publisher;
+        this.author = author;
+    }
+
+    public Novel(String title, String publisher, String author, BigDecimal year, boolean hasCode) {
+        // super.setCode(code);
+        // super.setTitle(title);
+        // super.setCode(Helpers.generateCodeBook(year, "novel"));
         this.setTitle(title);
         this.setYear(year);
         this.publisher = publisher;
@@ -50,6 +63,10 @@ public class Novel extends Book {
 
     public static int incrementCounter() {
         return ++counter;
+    }
+
+    public static void setCounter(int counter) {
+        Novel.counter = counter;
     }
 
     @Override

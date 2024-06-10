@@ -13,6 +13,7 @@ import com.ilu.enigpus.models.Book;
 import com.ilu.enigpus.models.Magazine;
 import com.ilu.enigpus.models.Novel;
 import com.ilu.enigpus.services.InventoryService;
+import com.ilu.enigpus.utils.Helpers;
 
 public class InventoryServiceImpl implements InventoryService {
 
@@ -79,18 +80,11 @@ public class InventoryServiceImpl implements InventoryService {
             }
         }
 
-
         return false;
     }
 
     @Override
     public ArrayList<Book> getAllBook() {
-        try {
-            writeBooksToFile();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
         return books;
     }
 
@@ -109,6 +103,7 @@ public class InventoryServiceImpl implements InventoryService {
                     writer.write("novel," + book.getCode() + "," + book.getTitle() + "," + ((Novel) book).getPublisher()
                             + ","
                             + ((Novel) book).getAuthor() + "," + book.getYear() + "\n");
+
                 }
 
                 if (book instanceof Magazine) {
@@ -128,6 +123,11 @@ public class InventoryServiceImpl implements InventoryService {
         FileReader fileReader = new FileReader(file);
         BufferedReader reader = new BufferedReader(fileReader);
 
+        ArrayList<Book> localBooks = new ArrayList<Book>();
+
+        String novelCounter = "0";
+        String magazineCounter = "0";
+
         try {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -137,28 +137,34 @@ public class InventoryServiceImpl implements InventoryService {
 
                 Book book;
                 if (type.equals("novel")) {
-                    // writer.write("novel," + book.getCode() + "," + book.getTitle() + "," + ((Novel) book).getPublisher()
-                    //         + ","
-                    //         + ((Novel) book).getAuthor() + "," + book.getYear() + "\n");
+                    book = new Novel(data[2], data[3], data[4], new BigDecimal(data[5]), false);
+                    book.setCode(data[1]);
 
-                    // book = new Novel(code, title);
-                    book = new Novel(data[2], data[3], data[4], new BigDecimal(data[5]));
+                    String[] code = book.getCode().split("-");
+
+                    if (Helpers.lessThan(novelCounter, code[2])) {
+                        novelCounter = Helpers.toBigDecimal(code[2]).toString();
+                    }
                 } else if (type.equals("magazine")) {
-                    // writer.write("magazine," + book.getCode() + "," + book.getTitle() + ","
-                    //         + ((Magazine) book).getPeriod() + ","
-                    //         + book.getYear()
-                    //         + "\n");
 
-                    // book = new Magazine(code, title);
+                    book = new Magazine(data[2], data[3], new BigDecimal(data[4]), false);
+                    book.setCode(data[1]);
 
-                    book = new Magazine(data[2], data[3], new BigDecimal(data[4]));
+                    String[] code = book.getCode().split("-");
+
+                    if (Helpers.lessThan(magazineCounter, code[2])) {
+                        magazineCounter = Helpers.toBigDecimal(code[2]).toString();
+                    }
                 } else {
-                    // Tangani jenis buku yang tidak valid
                     book = null;
                 }
 
-                books.add(book);
+                localBooks.add(book);
             }
+
+            Novel.setCounter(Integer.parseInt(novelCounter));
+            Magazine.setCounter(Integer.parseInt(magazineCounter));
+            books = localBooks;
         } finally {
             reader.close();
         }

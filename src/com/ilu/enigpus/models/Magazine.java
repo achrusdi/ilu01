@@ -9,7 +9,17 @@ public class Magazine extends Book {
     public static int counter = 0;
 
     public Magazine(String title, String period, BigDecimal year) {
-        this.setCode(Helpers.generateCodeBook(year, "magazine"));
+        // this.setCode(Helpers.generateCodeBook(year, "magazine"));
+        if (getCode() == null) {
+            this.setCode(Helpers.generateCodeBook(year, "magazine"));
+        }
+        this.setTitle(title);
+        this.setYear(year);
+        this.period = period;
+    }
+
+    public Magazine(String title, String period, BigDecimal year, boolean hasCode) {
+        // this.setCode(Helpers.generateCodeBook(year, "magazine"));
         this.setTitle(title);
         this.setYear(year);
         this.period = period;
@@ -40,6 +50,10 @@ public class Magazine extends Book {
 
     public static int incrementCounter() {
         return ++counter;
+    }
+
+    public static void setCounter(int counter) {
+        Magazine.counter = counter;
     }
 
     @Override
